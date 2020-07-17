@@ -23,6 +23,7 @@
   "homepage": "https://github.com/sdiperi90/heroku-test#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "googleapis": "^54.1.0",
     "nodemon": "^2.0.4"
   },
   "engines": {
