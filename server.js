@@ -8,19 +8,31 @@ app.get("/", (req, res) => {
   res.sendFile("/index.html", { root: __dirname });
 });
 
-// app.post("/", async (req, res) => {
-//   const resp = await google.gmail.users.watch({
-//     userId: "sirgasheva17@gmail.com",
-//     requestBody: {
-//       // Replace with `projects/${PROJECT_ID}/topics/${TOPIC_NAME}`
-//       topicName: `projects/little-leo-tadpoles/topics/tadpolesGmailTrigger`
-//     }
-//   });
-//   console.log(resp.data);
-//   console.log("REQ", req);
+app.post("/", async (req, res) => {
+  const gmail = await google.gmail({ version: "v1", auth });
+  let resp = await gmail.users.watch({
+    userId: "sdiperi17@gmail.com",
+    requestBody: {
+      topicName: "projects/little-leo-tadpoles/topics/tadpolesGmailTrigger"
+    },
+    labelIds: [
+      "CATEGORY_UPDATES",
+      "DRAFT",
+      "CATEGORY_PROMOTIONS",
+      "CATEGORY_SOCIAL",
+      "CATEGORY_FORUMS",
+      "TRASH",
+      "CHAT",
+      "SPAM"
+    ],
+    labelFilterAction: "exclude"
+  });
 
-//   return res.send("success");
-// });
+  console.log(resp.data);
+  console.log("REQ", req);
+
+  return res.send("success");
+});
 
 app.post("/", async (req, res) => {
   const gmail = await google.gmail({ version: "v1", auth: auth });
