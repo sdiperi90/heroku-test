@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
   const gmail = await google.gmail({
-    version: "v1",
+    version: "v3",
     auth: process.env.API_KEY
   });
   let resp = await gmail.users.watch({
@@ -33,7 +33,7 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => {
   const gmail = await google.gmail({
-    version: "v1",
+    version: "v3",
     auth: process.env.API_KEY
   });
   let resp = await gmail.users.watch({
