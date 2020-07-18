@@ -8,18 +8,46 @@ app.get("/", (req, res) => {
   res.sendFile("/index.html", { root: __dirname });
 });
 
-app.post("/", async (req, res) => {
-  const resp = await google.gmail.users.watch({
-    userId: "sirgasheva17@gmail.com",
-    requestBody: {
-      // Replace with `projects/${PROJECT_ID}/topics/${TOPIC_NAME}`
-      topicName: `projects/little-leo-tadpoles/topics/tadpolesGmailTrigger`
-    }
-  });
-  console.log(resp.data);
-  console.log("REQ", req);
+// app.post("/", async (req, res) => {
+//   const resp = await google.gmail.users.watch({
+//     userId: "sirgasheva17@gmail.com",
+//     requestBody: {
+//       // Replace with `projects/${PROJECT_ID}/topics/${TOPIC_NAME}`
+//       topicName: `projects/little-leo-tadpoles/topics/tadpolesGmailTrigger`
+//     }
+//   });
+//   console.log(resp.data);
+//   console.log("REQ", req);
 
-  return res.send("success");
+//   return res.send("success");
+// });
+
+app.post("/", async (req, res) => {
+  const gmail = await google.gmail({ version: "v1", auth: auth });
+  await gmail.users
+    .watch({
+      userId: "sdiperi17@gmail.com",
+      requestBody: {
+        topicName: "projects/little-leo-tadpoles/topics/tadpolesGmailTrigger"
+      },
+      labelIds: [
+        "CATEGORY_UPDATES",
+        "DRAFT",
+        "CATEGORY_PROMOTIONS",
+        "CATEGORY_SOCIAL",
+        "CATEGORY_FORUMS",
+        "TRASH",
+        "CHAT",
+        "SPAM"
+      ],
+      labelFilterAction: "exclude"
+    })
+    .then(function(res) {
+      console.log("DATA1", res.data);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
 });
 
 app.listen(PORT, () =>
