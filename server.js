@@ -4,9 +4,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.CLIENT_ID,
+    keys.CLIENT_SECRET
+  );
   const gmail = await google.gmail({
     version: "v3",
-    auth: process.env.API_KEY
+    auth: oauth2Client
   });
   let resp = await gmail.users.watch({
     userId: "sirgasheva17@gmail.com",
@@ -32,9 +36,13 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.CLIENT_ID,
+    keys.CLIENT_SECRET
+  );
   const gmail = await google.gmail({
     version: "v3",
-    auth: process.env.API_KEY
+    auth: oauth2Client
   });
   let resp = await gmail.users.watch({
     userId: "sirgasheva17@gmail.com",
