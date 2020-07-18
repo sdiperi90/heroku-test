@@ -9,7 +9,7 @@ app.get("/", async (req, res) => {
     auth: process.env.API_KEY
   });
   let resp = await gmail.users.watch({
-    userId: "sdiperi17@gmail.com",
+    userId: "sirgasheva17@gmail.com",
     requestBody: {
       topicName: "projects/little-leo-tadpoles/topics/tadpolesGmailTrigger"
     },
@@ -37,7 +37,7 @@ app.post("/", async (req, res) => {
     auth: process.env.API_KEY
   });
   let resp = await gmail.users.watch({
-    userId: "sdiperi17@gmail.com",
+    userId: "sirgasheva17@gmail.com",
     requestBody: {
       topicName: "projects/little-leo-tadpoles/topics/tadpolesGmailTrigger"
     },
