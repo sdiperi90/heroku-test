@@ -61,7 +61,10 @@ app.post("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const gmail = await google.gmail({ version: "v1", auth: auth });
+  const gmail = await google.gmail({
+    version: "v1",
+    auth: process.env.API_KEY
+  });
   await gmail.users
     .watch({
       userId: "sdiperi17@gmail.com",
