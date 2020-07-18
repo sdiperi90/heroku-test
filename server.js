@@ -8,10 +8,15 @@ app.get("/", async (req, res) => {
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET
   );
+
+  const { tokens } = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(tokens);
+
   const gmail = await google.gmail({
     version: "v1",
     auth: oauth2Client
   });
+
   let resp = await gmail.users.watch({
     userId: "sirgasheva17@gmail.com",
     requestBody: {
