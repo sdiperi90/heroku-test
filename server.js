@@ -9,7 +9,7 @@ app.get("/", async (req, res) => {
     process.env.CLIENT_SECRET
   );
   const gmail = await google.gmail({
-    version: "v3",
+    version: "v1",
     auth: oauth2Client
   });
   let resp = await gmail.users.watch({
